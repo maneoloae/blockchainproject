@@ -3,14 +3,17 @@ class Dog #클래스는 소문자, 무조건 네이밍 단어 첫 번째는 알�
 
 	def initialize #자동적으로 한바퀴돌고 시작함
 		@hungry = true ##@가 붙었다는 뜻은 이 클래스 내에서 아무 곳에서 쓸 수 있는 변수
-		@weight = 0.5
+		@weight = 0.5 ##boolean 쓸 때는 무조건 스몰
+		@previous_weight = 0 #기존 몸무게
 		@age = 1
 	end
 	def my_weight
+		puts "기존 몸무게 : " + @previous_weight.to_s
 		puts "현재 몸무게 " + @weight.to_s ##a문자와 숫자값을 더할 때, 변환을 해줘야 함
 	end
 
 	def eat
+		@previous_weight = @weight
 		@weight = @weight + 0.5
 		puts "먹는다"
 	end
