@@ -1,22 +1,21 @@
+require 'sinatra'
+require './class_def' ##class_def에서 짠 코드
 
-class Dog #클래스는 소문자, 무조건 네이밍 단어 첫 번째는 알파벳 대문자
 
-	def eat
-		puts "먹는다"
-	end
+aa = Dog.new 
 
-	def run
-		puts "뛴다" 	
-	end
 
-	def walk
-		puts "걷는다"
-	end
+
+get '/' do ##같은 디렉토리에 있어야함
+	"Dog " + aa.my_weight
 end
 
+get '/eat' do
+	aa.eat ##localhost로 호출할 때마다 살찜
+	"먹는다"
+end
 
-aa = Dog.new ##Dog를 대입
-aa.run ##강아지가 aa란 이름으로 활동할 것 
+##데이터 쏴줌
 
-
-
+#MVC 구성으로 되어있음. 사용자가 보는 것이 view : logic이 안 들어감
+#view가 컨트롤러랑 계속 통신함. 이 페이지는 view
