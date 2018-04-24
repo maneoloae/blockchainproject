@@ -11,7 +11,7 @@ get '/' do ##같은 디렉토리에 있어야함
 end
 
 get '/eat' do
-	aa.eat ##localhost로 호출할 때마다 살찜
+	aa.eat ##localhost로 호출할 때마다 살찜 이 친구가 불러오는 거
 	"먹는다"
 end
 
