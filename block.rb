@@ -34,6 +34,7 @@ rand 범위를 늘려가며 블럭난이도를 조절해보기, 구글에 루비
 		"index" => @chain.size + 1, #화살표로 매칭의 표시임,과거에 나온 사이즈에 1을 더해주는 것#
 		"time" => Time.now, #지금시간으로 바꿔줌#
 		"nonce" => nonce,
+		"previous_address" => Digest::SHA256.hexdigest(last_block.to_s), #블록이 가지고 있는 앞의 주소를 point / 주소는 앞 블록의 hash값임#
 	}
 	@chain << block
 
@@ -42,8 +43,13 @@ rand 범위를 늘려가며 블럭난이도를 조절해보기, 구글에 루비
 #fundamental하게 hash의 개념은 key value매칭의 연속된 묶음임. 암호화가 아니다.#
 #암호된 단어로 1대1매칭되어 있기 때문에, 그렇게 부르는 것이다.one to one매칭의 묶음을 hash라 함#
 #pyton의 똑같은 개념이 dictionary#
+#lastblock을 해슁해서 주소로 쓰는 게 원래 방식. to_s로 한줄로 변환해줌#
 =end
 	
+	end
+
+	def last_block
+		@chain[-1] #자동으로 예외처리가 됨#
 	end
 
 
@@ -52,3 +58,10 @@ rand 범위를 늘려가며 블럭난이도를 조절해보기, 구글에 루비
 	end
 
 end
+
+
+
+=begin
+list에서 역순으로 배열에 접근할 때, -를 쓰면 간단함
+
+=end
