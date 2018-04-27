@@ -7,15 +7,19 @@ b = Blockchain.new
 
 get '/' do
 
-	message = "" #메시지를 계속 찍겠다#
+	message = "<center>" #메시지를 계속 찍겠다#
 
 
 	b.all_chains.each do |a| #allchains의 블럭을 하나하나 뽑아서 돌 것임, a라는 이름으로 돌것#
-		message << a["index"].to_s + "<br>" #문자를 더하여서 넣을 것임 + 띄워서 넣는 엔터#
+		message << "번호는 : " + a["index"].to_s + "<br>" #문자를 더하여서 넣을 것임 + 띄워서 넣는 엔터#
+		message << "Nonce는 : " + a["nonce"].to_s + "<br>"
+		message << "시간은 : " + a["time"].to_s + "<br>"
+		message << "앞 주소는 : " + a["previous_address"].to_s + "<br>"
+		message << "내 주소는 : " + Digest::SHA256.hexdigest(a.to_s) + "&mbsp<br>"#앞 주소를 통짜로 해쉬한다음 내 주소까지 박아줌#
+		message << "<hr>"
 	end	
-
-
-	message
+	message << "<hr>" #줄그어주는 것#
+	message << "</center>"
 end
 
 
