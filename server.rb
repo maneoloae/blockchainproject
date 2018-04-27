@@ -9,7 +9,6 @@ get '/' do
 
 	message = "<center>" #메시지를 계속 찍겠다#
 
-
 	b.all_chains.each do |a| #allchains의 블럭을 하나하나 뽑아서 돌 것임, a라는 이름으로 돌것#
 		message << "번호는 : " + a["index"].to_s + "<br>" #문자를 더하여서 넣을 것임 + 띄워서 넣는 엔터#
 		message << "Nonce는 : " + a["nonce"].to_s + "<br>"
@@ -26,3 +25,4 @@ end
 get '/mine' do
 	b.mining.to_s #block에서 mining을 불러오기 + 문자열로 변환, "쓰면 문장 그대로 나#
 end
+##이더스캔이 하는 일이 이것#
