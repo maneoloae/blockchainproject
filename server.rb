@@ -12,5 +12,6 @@ end
 
 
 get '/mine' do
-	"마이닝 중입니다."
+	b.mining.to_s#block에서 mining을 불러오기 + 문자열로 변환, "쓰면 문장 그대로 나#
+	
 end
