@@ -6,7 +6,16 @@ b = Blockchain.new
 ####mining은 의미없는 수학문제를 푸는 것###
 
 get '/' do
-	b.all_chains.to_s
+
+	message = "" #메시지를 계속 찍겠다#
+
+
+	b.all_chains.each do |a| #allchains의 블럭을 하나하나 뽑아서 돌 것임, a라는 이름으로 돌것#
+		message << a["index"].to_s + "<br>" #문자를 더하여서 넣을 것임 + 띄워서 넣는 엔터#
+	end	
+
+
+	message
 end
 
 
