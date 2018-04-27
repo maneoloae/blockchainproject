@@ -23,22 +23,32 @@ rand 범위를 늘려가며 블럭난이도를 조절해보기, 구글에 루비
 #hash암호를 복호화했을때, 앞에서 3자리까지가 0000일 경우가 답이다#
 #채굴기들이 연산하느라, 네트워크가 구성되어서 인프라를 제공하는것#
 =end
-	history.size 
+	
 =begin
 #nonce : 함수가 끝나면서 자기를 부르면 녀석한테 돌아가서 대체함. 제일 마지막에 나오는 수(nonce값직전가 대체함)#
 #몇 번이나 시도했는지#
 =end
-	end #digest로 sha 로직 불러올 수 있음#
+	#digest로 sha 로직 불러올 수 있음#
 
-	block {
-		"index" => 1, #화살표로 매칭의 표시임#
-		"time" => 20329384
-		"nonce" => 3234
+	block = {
+		"index" => @chain.size + 1, #화살표로 매칭의 표시임,과거에 나온 사이즈에 1을 더해주는 것#
+		"time" => Time.now, #지금시간으로 바꿔줌#
+		"nonce" => nonce,
 	}
+	@chain << block
+
+	 #chain뒤에 블락이 계속 박히는 것, 연결되는 것#
 =begin
 #fundamental하게 hash의 개념은 key value매칭의 연속된 묶음임. 암호화가 아니다.#
 #암호된 단어로 1대1매칭되어 있기 때문에, 그렇게 부르는 것이다.one to one매칭의 묶음을 hash라 함#
-#python의 똑같은 개념이 dictionary#
-
+#pyton의 똑같은 개념이 dictionary#
 =end
+	
+	end
+
+
+	def all_chains #블록체인 생태계의 모든 블록을 찍어내기 위한 코드#
+		@chain
+	end
+
 end
