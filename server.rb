@@ -1,5 +1,5 @@
 require 'sinatra' 
-require './block'
+require './block' #blockchain class를 넣겠다#
 
 b = Blockchain.new
 
@@ -12,6 +12,5 @@ end
 
 
 get '/mine' do
-	b.mining.to_s#block에서 mining을 불러오기 + 문자열로 변환, "쓰면 문장 그대로 나#
-	
+	b.mining.to_s #block에서 mining을 불러오기 + 문자열로 변환, "쓰면 문장 그대로 나#
 end
