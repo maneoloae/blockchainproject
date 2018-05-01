@@ -15,6 +15,7 @@ get '/' do
 		message << "시간은 : " + a["time"].to_s + "<br>"
 		message << "앞 주소는 : " + a["previous_address"].to_s + "<br>"
 		message << "내 주소는 : " + Digest::SHA256.hexdigest(a.to_s) + "&mbsp<br>"#앞 주소를 통짜로 해쉬한다음 내 주소까지 박아줌#
+		message << "거래정보 : " + a["transaction"].to_s + "<br>"
 		message << "<hr>"
 	end	
 	message << "<hr>" #줄그어주는 것#

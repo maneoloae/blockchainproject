@@ -13,7 +13,7 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 			"amount" => a
 		}
 		@tx << tx #거래가 일어날 때마다, 매번 거래정보가 저장됨#
-		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s
+		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s #숫자를 문자로 바꿔서 더해야 하므로 / .은 변경한다는 뜻#
 	end
 
 =begin
@@ -52,8 +52,10 @@ rand 범위를 늘려가며 블럭난이도를 조절해보기, 구글에 루비
 		"index" => @chain.size + 1, #화살표로 매칭의 표시임,과거에 나온 사이즈에 1을 더해주는 것#
 		"time" => Time.now, #지금시간으로 바꿔줌#
 		"nonce" => nonce,
-		"previous_address" => Digest::SHA256.hexdigest(last_block.to_s), #블록이 가지고 있는 앞의 주소를 point / 주소는 앞 블록의 hash값임#
+		"previous_address" => Digest::SHA256.hexdigest(last_block.to_s),
+		"transaction" => @tx #블록이 가지고 있는 앞의 주소를 point / 주소는 앞 블록의 hash값임#
 	}
+	@tx = [] #기존에 있는 거래정보빼고 다시 빈 걸로 선언#
 	@chain << block
 
 	 #chain뒤에 블락이 계속 박히는 것, 연결되는 것#
