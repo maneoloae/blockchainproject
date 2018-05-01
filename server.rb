@@ -25,4 +25,8 @@ end
 get '/mine' do
 	b.mining.to_s #block에서 mining을 불러오기 + 문자열로 변환, "쓰면 문장 그대로 나#
 end
-##이더스캔이 하는 일이 이것#
+##이더스캔이 하는 일이 이것
+
+get '/tx' do
+	b.make_a_tx(params["sender"],params["receipent"],params["amount"])##브라우져와 ruby파일통신은 params##
+end

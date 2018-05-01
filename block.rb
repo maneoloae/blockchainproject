@@ -3,7 +3,25 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 
 	def initialize
 		@chain = []#chainlist를 관리하기 위하여, 설정함 @가붙어서 지속됨#
+		@tx = []
 	end
+
+	def make_a_tx(s, r, a)#서버단 params의 거래정보가 각각 넘어옴#
+		tx = {
+			"sender" => s,
+			"receipent" => r,
+			"amount" => a
+		}
+		@tx << tx #거래가 일어날 때마다, 매번 거래정보가 저장됨#
+		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s
+	end
+
+=begin
+upbitsite가 위와 같은 형식으로 구성되어 있어서, 업비트의 웹서버가 받은 것을 로직으로 처리한 것을,
+결과물로 처리하고 송금함
+=end
+
+
 	def mining ###0부터 10사이의 아무 숫자나 찍었을 때, 0이면 마이닝 성공####
 
 		history = [] #nonce값이 나올 때마다, history에 밀어넣음, 얼마나 개고생했는지 보여주는 것#
