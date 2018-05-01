@@ -1,9 +1,21 @@
+
+require 'securerandom'#uuid생성#
+
+
 class Blockchain ###설계도청사진으로 logic만 들고있
 
 
 	def initialize
 		@chain = []#chainlist를 관리하기 위하여, 설정함 @가붙어서 지속됨#
 		@tx = []
+
+		@wallet = {}
+	end
+
+	def make_a_wallet
+		address = SecureRandom.uuid.gsub("-", "") #myetherwallet도 uuid를 사용함,지갑 만들면 100원은 줄게#
+		@wallet[address] = 100#숫자가 있으면 배열, 문자가 있으면 hash로생각함#
+		@wallet
 	end
 
 	def make_a_tx(s, r, a)#서버단 params의 거래정보가 각각 넘어옴, 보내는사람,받는사람,양이 묶여서 작동을 하#

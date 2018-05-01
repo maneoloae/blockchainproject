@@ -31,3 +31,7 @@ end
 get '/tx' do
 	b.make_a_tx(params["sender"],params["receipent"],params["amount"])##브라우져와 ruby파일통신은 params##
 end
+
+get '/new_wallet' do
+	b.make_a_wallet.to_s
+end
