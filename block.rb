@@ -12,6 +12,10 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 		@wallet = {}
 	end
 
+	def wallet_list
+		@wallet
+	end
+
 	def make_a_wallet
 		address = SecureRandom.uuid.gsub("-", "") #myetherwallet도 uuid를 사용함,지갑 만들면 100원은 줄게#
 		@wallet[address] = 100#숫자가 있으면 배열, 문자가 있으면 hash로생각함#
@@ -28,6 +32,9 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 			elsif @wallet[s].to_f < a.to_f
 				"돈이 부족합니다."
 			else
+
+			@wallet[s] = @wallet[s] - a.to_f
+			@wallet[r] = @wallet[r] + a.to_f
 
 		tx = {
 			"sender" => s,
