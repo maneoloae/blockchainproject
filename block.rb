@@ -19,6 +19,16 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 	end
 
 	def make_a_tx(s, r, a)#서버단 params의 거래정보가 각각 넘어옴, 보내는사람,받는사람,양이 묶여서 작동을 하#
+		
+
+			if @wallet[s].nil?#보내는 사람 지갑주소 체크#
+				"없는 지갑입니다."
+			elsif @wallet[r].nil?#받는 사람 지갑주소 체크인데, 실제 비트코인과, 이더는 이런 기능 없음. 없어도 전송가능#
+				"없는 지갑입니다."
+			elsif @wallet[s].to_f < a.to_f
+				"돈이 부족합니다."
+			else
+
 		tx = {
 			"sender" => s,
 			"receipent" => r,
@@ -27,6 +37,7 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 		@tx << tx #거래가 일어날 때마다, 매번 거래정보가 저장됨,저장#
 		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s #숫자를 문자로 바꿔서 더해야 하므로 / .은 변경한다는 뜻#
 	end
+end
 
 =begin
 upbitsite가 위와 같은 형식으로 구성되어 있어서, 업비트의 웹서버가 받은 것을 로직으로 처리한 것을,
