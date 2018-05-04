@@ -1,6 +1,7 @@
 
 require 'securerandom'#uuid생성#
 require 'httparty'
+require 'json'
 
 class Blockchain ###설계도청사진으로 logic만 들고있
 
@@ -22,16 +23,25 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 		@node
 	end
 
-
 	def ask_block #확인하는 것을 자동으로 하기 위해서 씀#
 		@node.each do |n|
-			n_blocks = HTTParty.get("http://localhost:"+n+"/number_of_blocks").body
+			n_blocks = HTTParty.get("http://localhost:"+n+"/number_of_blocks").body #body는 값으로 뽑아오기 위해서 넣음#
 			if @chain.length < n_blocks.to_i
-				@chain = [] #노드간 체인을 비교하고 작으면 없앰#
+				#내 블럭 정보를 모두 JSON으로 만들고 ; JSON 통신
+				#그 정보를 상대에게 던진다
+				full_chain = @chain.to_json #블록간 싱크를 맞추기 위해서#
+				bb = HTTParty.get("http://localhost:"+n+"/recv_chain?chain="+full_chain).body#내 블락체인 데이터를 JSON으로 뭉친다음에 recv로 보낸다#
+				@chain = JSON.parse(full_chain) #노드간 체인을 비교하고 작으면 없앰#
 			end#내가 들고있는 노드들의 정보를 빼와서 확인함#
 		end
 	end
 
+	def add_block(block)
+		block.each do |b|#하나씩 분리해서 b에 저장하고 체인에 밀어넣은다음에 끝남#
+			@chain << b
+		end
+		@chain.to_json #블록이 긴녀석이 작은 녀석을 더해서, json으로 return함#
+	end
 
 	def wallet_list
 		@wallet

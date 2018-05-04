@@ -9,6 +9,12 @@ get '/add_node' do #node관리#
 	0.to_s
 end
 
+get '/recv_chain' do #json 코드를 받는 역할#
+	rev_chain = params["chain"] #체인 정보를 담을 수 있음#
+	extracted = JSON.parse(rev_chain)#JSON으로 암호화된 파일 압축을 풀어서 넣기 위해=싱크화
+	b.add_block(extracted)#만들어진 블락을 추가함#
+end
+
 get '/all_node' do #노드확인#
 	b.all_node.to_s
 end
