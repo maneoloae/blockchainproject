@@ -3,6 +3,25 @@ require './block' #blockchain class를 넣겠다#
 
 b = Blockchain.new
 
+get '/add_node' do #node관리#
+	port = params["port"] #포트정보를 얻음 ex1234 이렇게#
+	b.add_port(port) #포트정보를 던짐#
+	0.to_s
+end
+
+get '/all_node' do #노드확인#
+	b.all_node.to_s
+end
+
+
+get '/number_of_blocks' do
+	b.all_chains.size.to_s #size는 블럭의 개수, 원래는 데이터의 사이즈#
+end
+
+get '/ask' do
+	b.ask_block
+end
+
 ####mining은 의미없는 수학문제를 푸는 것###
 
 get '/' do

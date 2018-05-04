@@ -1,6 +1,6 @@
 
 require 'securerandom'#uuid생성#
-
+require 'httparty'
 
 class Blockchain ###설계도청사진으로 logic만 들고있
 
@@ -8,9 +8,30 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 	def initialize
 		@chain = []#chainlist를 관리하기 위하여, 설정함 @가붙어서 지속됨#
 		@tx = []
-
-		@wallet = {}
+		@wallet = {} #복합정보를 가지고 뭐는 뭐다 이런 식으로 data set이기 때문에, {}를 씀#
+		@node = [] #노드 추가, 단순 리스트라서[]를 씀#
 	end
+
+
+	def add_port(port) #포트정보를 더함#
+		@node << port
+		@node.compact!#nill값 제거. 포트값을 안 더하므로 nill이 생김#
+	end
+
+	def all_node
+		@node
+	end
+
+
+	def ask_block #확인하는 것을 자동으로 하기 위해서 씀#
+		@node.each do |n|
+			n_blocks = HTTParty.get("http://localhost:"+n+"/number_of_blocks").body
+			if @chain.length < n_blocks.to_i
+				@chain = [] #노드간 체인을 비교하고 작으면 없앰#
+			end#내가 들고있는 노드들의 정보를 빼와서 확인함#
+		end
+	end
+
 
 	def wallet_list
 		@wallet
@@ -42,6 +63,7 @@ class Blockchain ###설계도청사진으로 logic만 들고있
 			"amount" => a
 		}
 		@tx << tx #거래가 일어날 때마다, 매번 거래정보가 저장됨,저장#
+		#실제 비즈니스 로직에서는, 트랜잭션 전, 하나하나 떼서 유효한 지 재검토를 함. 잔액보다 큰 돈을 빼려하면 트랜잭션을 지워버림#
 		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s #숫자를 문자로 바꿔서 더해야 하므로 / .은 변경한다는 뜻#
 	end
 end
